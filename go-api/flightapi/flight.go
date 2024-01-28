@@ -1,43 +1,50 @@
-
 package flightapi
 
-
 import (
+	"encoding/json"
+	"log"
+	"net/http"
 	"time"
-    "log"
-    "encoding/json"
+
+	"github.com/Obi-Wan-Codenobi/American-Airlines-Overbookings/go-api/flightJson"
 )
 
-type FlightInfo struct {
-	FlightNumber string `json:"flightNumber"`
-	Origin       string `json:"origin"`
-	Destination  string `json:"destination"`
-}
-
-func FlightMain(flightInfoChan chan<- []byte){
+func FlightMain(flightInfoChan chan<- []byte) {
+    apiURL := "http://localhost:4000/flights?date=2023-01-01"
 
     for {
-
         log.Printf("Grabbing Info From API")
 
-        flight := FlightInfo{
-            FlightNumber: "AA123",
-            Origin:       "PHL",
-            Destination:  "DFW",
-        }
-
-        
-        jsonData, err := json.Marshal(flight)
+        response, err := http.Get(apiURL)
         if err != nil {
-           
-            log.Printf("Error marshaling JSON: %v", err)
+            log.Printf("Error making HTTP request: %v", err)
+            continue
+        }
+        defer response.Body.Close()
+
+        if response.StatusCode != http.StatusOK {
+            log.Printf("Error: Unexpected status code: %v", response.Status)
             continue
         }
 
-        // Send the JSON data to the channel
-        flightInfoChan <- jsonData
+        var flightInfoList []flightJson.FlightInfo
+        err = json.NewDecoder(response.Body).Decode(&flightInfoList)
+        if err != nil {
+            log.Printf("Error decoding JSON: %v", err)
+            continue
+        }
 
-        // Simulate a delay between updates
-        time.Sleep(1 * time.Second)
+        for _, flightInfo := range flightInfoList {
+            jsonData, err := json.Marshal(flightInfo)
+            if err != nil {
+                log.Printf("Error marshaling JSON: %v", err)
+                continue
+            }
+
+            flightInfoChan <- jsonData
+        }
+
+        time.Sleep(5 * time.Second)
     }
 }
+
