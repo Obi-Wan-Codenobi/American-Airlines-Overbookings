@@ -4,47 +4,33 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"time"
+    "fmt"
 
 	"github.com/Obi-Wan-Codenobi/American-Airlines-Overbookings/go-api/flightJson"
 )
 
-func FlightMain(flightInfoChan chan<- []byte) {
-    apiURL := "http://localhost:4000/flights?date=2023-01-01"
+func FlightMain(date string) ([]flightJson.FlightInfo, error){
 
-    for {
-        log.Printf("Grabbing Info From API")
+    log.Print("Fetching API data from American Airlines")
 
-        response, err := http.Get(apiURL)
-        if err != nil {
-            log.Printf("Error making HTTP request: %v", err)
-            continue
-        }
-        defer response.Body.Close()
+    apiURL := fmt.Sprintf("http://localhost:4000/flights?date=%s", date)
 
-        if response.StatusCode != http.StatusOK {
-            log.Printf("Error: Unexpected status code: %v", response.Status)
-            continue
-        }
-
-        var flightInfoList []flightJson.FlightInfo
-        err = json.NewDecoder(response.Body).Decode(&flightInfoList)
-        if err != nil {
-            log.Printf("Error decoding JSON: %v", err)
-            continue
-        }
-
-        for _, flightInfo := range flightInfoList {
-            jsonData, err := json.Marshal(flightInfo)
-            if err != nil {
-                log.Printf("Error marshaling JSON: %v", err)
-                continue
-            }
-
-            flightInfoChan <- jsonData
-        }
-
-        time.Sleep(5 * time.Second)
+    response, err := http.Get(apiURL)
+    if err != nil {
+        return nil, err
     }
+    defer response.Body.Close()
+
+    if response.StatusCode != http.StatusOK {
+        return nil, fmt.Errorf("Unexpected status code: %v", response.Status)
+    }
+
+    var flightInfoList []flightJson.FlightInfo
+    err = json.NewDecoder(response.Body).Decode(&flightInfoList)
+    if err != nil {
+        return nil, err
+    }
+
+    return flightInfoList, nil
 }
 
