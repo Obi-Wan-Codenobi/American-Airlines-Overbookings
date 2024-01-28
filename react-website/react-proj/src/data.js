@@ -4,7 +4,8 @@ const flights = [{
   "origin": "PHL",
   "destination": "DFW",
   "capacity": "126",
-  "passengerCount": "140"
+  "passengerCount": "140",
+  "date": "2024-01-01"
 },
 {
   id: 2,
@@ -12,7 +13,8 @@ const flights = [{
   "origin": "PHL",
   "destination": "DFW",
   "capacity": "126",
-  "passengerCount": "140"
+  "passengerCount": "140",
+  "date": "2024-01-01"
 },
 {
   id: 3,
@@ -21,6 +23,7 @@ const flights = [{
   "destination": "DFW",
   "capacity": "126",
   "passengerCount": "140",
+  "date": "2024-01-02"
 },
 {
   id:4,
@@ -28,7 +31,8 @@ const flights = [{
   "origin": "LAX",
   "destination": "JFK",
   "capacity": "130",
-  "passengerCount": "120"
+  "passengerCount": "120",
+  "date": "2024-01-02"
 },
 {
   id: 5,
@@ -36,7 +40,8 @@ const flights = [{
   "origin": "ORD",
   "destination": "DEN",
   "capacity": "150",
-  "passengerCount": "140"
+  "passengerCount": "140",
+  "date": "2024-01-03"
 },
 {
   id: 6,
@@ -44,7 +49,8 @@ const flights = [{
   "origin": "ATL",
   "destination": "SFO",
   "capacity": "130",
-  "passengerCount": "110"
+  "passengerCount": "110",
+  "date": "2024-01-03"
 },
 {
   id: 7,
@@ -52,7 +58,8 @@ const flights = [{
   "origin": "SFO",
   "destination": "BOS",
   "capacity": "90",
-  "passengerCount": "100"
+  "passengerCount": "100",
+  "date": "2024-01-01"
 },
 {
   id: 8,
@@ -60,7 +67,8 @@ const flights = [{
   "origin": "SEA",
   "destination": "BOS",
   "capacity": "140",
-  "passengerCount": "130"
+  "passengerCount": "130",
+  "date": "2024-01-04"
 },
 {
   id: 9,
@@ -68,7 +76,7 @@ const flights = [{
   "origin": "JFK",
   "destination": "AUS",
   "capacity": "170",
-  "passengerCount": "120"
+  "passengerCount": "120",
 },
 {
   id: 10,
@@ -76,7 +84,8 @@ const flights = [{
   "origin": "DFW",
   "destination": "PHX",
   "capacity": "80",
-  "passengerCount": "90"
+  "passengerCount": "91",
+  "date": "2024-01-01"
 },
 {
   id: 11,
@@ -84,7 +93,8 @@ const flights = [{
   "origin": "EWR",
   "destination": "DFW",
   "capacity": "100",
-  "passengerCount": "110"
+  "passengerCount": "110",
+  "date": "2024-01-03"
 },
 {
   id:12,
@@ -92,7 +102,8 @@ const flights = [{
   "origin": "MSP",
   "destination": "IAH",
   "capacity": "90",
-  "passengerCount": "100"
+  "passengerCount": "100",
+  "date": "2024-01-05"
 },
 {
   id:13,
@@ -100,7 +111,8 @@ const flights = [{
   "origin": "BWI",
   "destination": "SAN",
   "capacity": "80",
-  "passengerCount": "90"
+  "passengerCount": "90",
+  "date": "2024-01-01"
 }]
 
 export default flights
