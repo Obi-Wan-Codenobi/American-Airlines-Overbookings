@@ -41,3 +41,4 @@ type FlightInfo struct {
 	Aircraft      Aircraft  `json:"aircraft"`
 }
 
+
